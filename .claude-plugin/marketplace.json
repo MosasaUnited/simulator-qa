@@ -1,0 +1,15 @@
+{
+  "name": "simulator-qa",
+  "description": "simulator-qa — hands-on QA of the real running app on Android, iOS simulators and browsers.",
+  "owner": {
+    "name": "MosasaUnited",
+    "url": "https://github.com/MosasaUnited"
+  },
+  "plugins": [
+    {
+      "name": "simulator-qa",
+      "source": "./",
+      "description": "Hands-on QA of the real running app on an Android emulator or device, an iOS simulator, or a browser — any stack."
+    }
+  ]
+}

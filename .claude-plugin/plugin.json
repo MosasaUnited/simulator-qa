@@ -1,0 +1,24 @@
+{
+  "name": "simulator-qa",
+  "version": "1.0.0",
+  "description": "Hands-on QA of the real running app on an Android emulator or device, an iOS simulator, or a browser: real taps, screenshots Claude actually looks at, deep links, logs, dark mode and RTL passes, and an evidence-backed report. Any stack; optional live-state add-on for Flutter.",
+  "author": {
+    "name": "MosasaUnited",
+    "url": "https://github.com/MosasaUnited"
+  },
+  "homepage": "https://github.com/MosasaUnited/simulator-qa",
+  "repository": "https://github.com/MosasaUnited/simulator-qa",
+  "license": "MIT",
+  "keywords": [
+    "qa",
+    "testing",
+    "android",
+    "ios",
+    "simulator",
+    "emulator",
+    "browser",
+    "playwright",
+    "flutter",
+    "react-native"
+  ]
+}
