@@ -21,6 +21,8 @@ you can read in a few minutes.
 > does the signup page work in Firefox and on an iPhone-sized screen?
 
 > the deep link myapp://order/42 should open the order screen — verify it on the simulator
+
+> here is the ticket and the design export — does the checkout screen match them?
 ```
 
 ## What Claude does with it
@@ -35,6 +37,11 @@ you can read in a few minutes.
   and failed requests in browsers.
 - **Second passes.** Dark mode, another language, right-to-left, another
   screen size, another browser engine.
+- **Checks it against the spec or the design.** Give it the requirements, the
+  ticket or a design image in the session and it tests against them: missing
+  elements, wrong wording, wrong order, an obviously wrong colour — reported as
+  expected, actual and evidence, without assuming which side is out of date.
+  It compares what a person would notice, not pixels.
 - **Reports.** A verdict, a scenario table, bugs with repro steps and the
   screenshot, what could not be covered, and what was left on the device.
 - **Stays careful.** Test data only, nothing that sends, pays or posts without
@@ -120,6 +127,7 @@ is designed to work but has not been run by the author — reports welcome.
 | Phone presets — iPhone 15 (WebKit, Firefox), Pixel 7 (Chromium) | the same scenario with touch | ✅ |
 | Installed Chrome and Edge | the same commands | ✅ Edge; Chrome needs `--headed` on the test machine (it quits after ~30 s when hidden) |
 | Flutter add-on, Android emulator | launch, read private state, seed state through a project prelude, real tap then read back, hot reload, hot restart | ✅ |
+| Spec and design check, Android emulator | a six-point spec and a design image that deliberately differed from the app: found the missing order line, the wrong button text and the wrong brand colour, and confirmed the three requirements that matched | ✅ one run, by the session that wrote the step |
 | A fresh Claude session given only the skill | QA of the sample page: found the planted failed request, a dark-mode contrast bug and a missing viewport tag | ✅ — its feedback is folded into this version |
 
 Not run: Linux and Windows hosts, physical Android devices, iPads, idb as the

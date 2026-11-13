@@ -1,6 +1,6 @@
 ---
 name: simulator-qa
-description: Hands-on QA of a feature in the REAL running app — on an Android emulator or device, an iOS simulator, or a browser (Chromium, Firefox, WebKit, phone-sized or desktop). Launch it, drive it with real taps, typing, swipes, deep links and intents, screenshot every step and look, read the logs, then repeat in dark mode and in a second language or RTL, and report what passed with evidence. Works for any stack — native Android or iOS, Flutter, React Native, web — with an optional add-on that reads and seeds live state inside a Flutter app. Use whenever a request says test, QA, verify, confirm, check or reproduce something "on the emulator", "on the simulator", "on the device", "in the browser", "in the app", "end to end", or asks whether it "really works" — and after a change that unit tests cannot see, such as manifests, permissions, deep links, native code, layout, theming or translations. Not for writing or running unit, widget or component tests.
+description: Hands-on QA of a feature in the REAL running app — on an Android emulator or device, an iOS simulator, or a browser (Chromium, Firefox, WebKit, phone-sized or desktop). Launch it, drive it with real taps, typing, swipes, deep links and intents, screenshot every step and look, read the logs, repeat in dark mode and in a second language or RTL, check the result against a spec, ticket or design image when one is given, and report what passed with evidence. Any stack — native Android or iOS, Flutter, React Native, web — with an optional add-on that reads and seeds live state inside a Flutter app. Use whenever a request says test, QA, verify, confirm, check or reproduce something "on the emulator", "on the simulator", "on the device", "in the browser", "in the app", "end to end", asks whether it "really works" or "matches the design" — and after a change unit tests cannot see: manifests, permissions, deep links, native code, layout, theming, translations. Not for writing or running unit, widget or component tests.
 license: MIT
 compatibility: Needs bash. Android — adb (Android SDK platform-tools). iOS — macOS with Xcode; taps need AXe or idb. Browsers — Node.js 22+ and Playwright. Flutter add-on — Flutter SDK and Node.js 22+.
 ---
@@ -106,6 +106,9 @@ non-zero — read the message before retrying.
    the change — the same input by typing and by paste, the empty and the error
    state, arriving by deep link as well as by tapping through, coming back to
    the screen after leaving it. Show the list before a long run.
+   **When there is a spec, a ticket or a design, start from it** — see
+   "Checking against a spec or a design" below. Its requirements become rows
+   before your own ideas do.
 2. **Get the build onto the target** (platform reference). Confirm you are
    testing the code that was changed: a stale install is the most common false
    pass.
@@ -128,6 +131,46 @@ non-zero — read the message before retrying.
    make: fix it, rebuild or hot-reload, replay the failing row *and* the rows
    near it. A fix earns a test that fails on the old code when one can be written.
 7. **Clean up** (rule 5) and **report**.
+
+## Checking against a spec or a design
+
+When the session contains what the feature is *supposed* to be — a
+requirements document, a ticket with acceptance criteria, pasted notes, a
+design image exported from a design tool, a design reachable through a
+connected design tool — the job is no longer "does it work" but "is it what
+was asked for". Tests cannot answer that, and neither can a screenshot alone.
+
+1. **Read the sources first, all of them, before touching the device.** Open
+   the document; Read the design images. If the user mentioned a spec or design
+   you cannot find, ask for it rather than testing from memory of the chat.
+2. **Turn each stated requirement into a scenario row**, quoting the source
+   (`spec §2: "the button reads Place order"`). Where the spec is silent or
+   contradicts the design, write that down as a question — do not pick a side
+   quietly.
+3. **Bring the app to the state the design shows**: the same screen, and as
+   near as the target allows the same size, theme and language. A design drawn
+   for a 390-wide phone is compared against a phone-sized target, not a desktop
+   window.
+4. **Compare the screenshot with the design, in this order**, because the
+   earlier items matter more and are judged more reliably:
+   - *What is there* — every element in the design present, nothing extra,
+     nothing missing.
+   - *The words* — exact copy. Read strings with `ui.sh`, not by eye: "Pay now"
+     against "Place order" is a finding, and so is a different capital letter
+     if the spec quotes the text.
+   - *Order and grouping* — which thing comes first, what sits beside what.
+   - *Emphasis and colour* — which button is the primary one, error against
+     success colours, an obviously different brand colour.
+   - *States* — the empty, error, loading and disabled states the spec or
+     design defines, each reached and looked at.
+5. **Say what a screenshot cannot settle.** Spacing of a few pixels, exact
+   font metrics and exact colour values are beyond comparing two images by eye.
+   When the spec names a value, measure instead: in a browser,
+   `node $S/web.mjs eval 'getComputedStyle(document.querySelector("#pay")).backgroundColor'`;
+   in a Flutter app, the add-on can read the widget's own properties.
+6. **Report mismatches without assuming who is wrong.** The app may be behind
+   the design, or the design behind a decision made later. State expected,
+   actual and the evidence, and let the team decide.
 
 ## Gotchas
 
@@ -179,6 +222,10 @@ conversation is re-read on every step.
    screen showed · ✅/❌.
 4. **Bugs:** steps to reproduce, the screenshot, the log line, and the cause
    in the code (file:line) when you found it.
+   **Spec and design mismatches**, when there was one to check against, in
+   their own table: requirement or design element (with its source) ·
+   expected · actual · evidence. Include the requirements that matched, so the
+   reader can see what was checked.
 5. **Not covered**, and why (needs a physical device, a real account, another
    OS version, an engine that is not installed).
 6. **Left behind:** an installed build, seeded data, a running emulator or

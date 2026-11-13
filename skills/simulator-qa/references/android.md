@@ -104,6 +104,10 @@ rather than typing garbage. For Arabic, CJK, emoji:
 
 ## Other things worth knowing
 
+- **Web content can be missing from `ui.sh` at first.** A page in Chrome or in
+  a web view often exposes nothing to the accessibility tree until it has been
+  touched; after the first tap or scroll the elements appear. Until then, read
+  tap targets off the screenshot.
 - **Back closes the keyboard first.** `key.sh back` once hides the keyboard; a
   second one goes back. Read the screenshot between them.
 - **Rotation:** `adb -s <serial> shell settings put system accelerometer_rotation 0`
