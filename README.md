@@ -11,6 +11,10 @@ Expo, or a website. It has no runtime of its own — it drives the tools you
 already have (`adb`, `xcrun simctl`, Playwright) through small shell scripts
 you can read in a few minutes.
 
+![Screenshots taken by the skill on an Android emulator, an iPhone simulator and a desktop browser](media/demo.png)
+
+*Real screenshots taken by the skill while testing a demo checkout page.*
+
 ```
 > test the new checkout flow on the emulator, then in dark mode and in Arabic
 
